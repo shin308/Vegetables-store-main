@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to My App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h1>Welcome!!!</h1>
+    <div th:switch="${#authentication} ? ${#authorization.expression('isAuthenticated()')} : ${false}">
+        <span th:case="${false}">
+            <a class="navbar-brand" th:href="@{/login}">Đăng nhập</a>
+            <a class="navbar-brand" th:href="@{/register}"> Đăng ký</a>
+        </span>
+        <span th:case="${true}">
+            <a class="navbar-brand" th:href="@{/account}">Tài khoản</a>
+            <a class="navbar-brand" th:href="@{/logout}"> Đăng xuất</a>
+            <span>Welcome
+                <span class="navbar-brand" th:text="${loggedInUser.lastName}"></span>
+                <span class="navbar-brand" th:text="${loggedInUser.firstName}"></span>
+            </span>
+        </span>
+        <span th:case="*">Should never happen, but who knows...</span>
+    </div>
+    <a class="h2" th:href="@{/category}" style="margin-top: 30px;">Management Category</a>
+</div>
+
+</body>
+</html>
